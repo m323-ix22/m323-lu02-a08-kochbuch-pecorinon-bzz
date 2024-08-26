@@ -1,6 +1,49 @@
-# Dein Code kommt hier hin
+import json
+
+
+def adjust_recipe(recipe, num_people):
+    """
+    Passt die Mengenangaben in einem Rezept an die angegebene Anzahl von Personen an.
+
+    :param recipe: Das Originalrezept als Dictionary
+    :param num_people: Die Anzahl der Personen, für die das Rezept angepasst werden soll
+    :return: Ein neues Rezept, angepasst für die angegebene Anzahl an Personen
+    """
+    # Berechne den Faktor für die Anpassung
+    adjustment_factor = num_people / recipe['servings']
+
+    # Erstelle ein neues Rezept-Dictionary
+    adjusted_recipe = {
+        'title': recipe['title'],
+        'ingredients': {
+            ingredient: amount * adjustment_factor
+            for ingredient, amount in recipe['ingredients'].items()
+        },
+        'servings': num_people
+    }
+
+    return adjusted_recipe
+
+
+def load_recipe(json_string):
+    """
+    Lädt ein Rezept aus einem JSON-String und gibt es als Dictionary zurück.
+
+    :param json_string: JSON-kodierter String, der das Rezept enthält
+    :return: Das Rezept als Python-Dictionary
+    """
+    return json.loads(json_string)
+
 
 if __name__ == '__main__':
     # Beispiel für die Datenstruktur eines Rezepts
     recipe_json = '{"title": "Spaghetti Bolognese", "ingredients": {"Spaghetti": 400, "Tomato Sauce": 300, "Minced Meat": 500}, "servings": 4}'
-    # Dein Code kommt hier hin
+
+    # Lese das Rezept aus dem JSON-String
+    recipe = load_recipe(recipe_json)
+
+    # Beispiel: Anpassung des Rezepts für 2 Personen
+    adjusted_recipe = adjust_recipe(recipe, 2)
+
+    # Ausgabe des angepassten Rezepts
+    print(json.dumps(adjusted_recipe, indent=4))  # Formatiert zur besseren Lesbarkeit
