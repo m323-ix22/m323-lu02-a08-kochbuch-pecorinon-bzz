@@ -1,3 +1,9 @@
+"""
+Dieses Modul enthält Funktionen zum Bearbeiten von Rezepten, die in JSON-Format vorliegen.
+Es ermöglicht das Laden eines Rezepts aus einem JSON-String und das Anpassen der Mengenangaben
+für eine bestimmte Anzahl von Personen.
+"""
+
 import json
 
 
@@ -9,7 +15,7 @@ def adjust_recipe(recipe, num_people):
     :param num_people: Die Anzahl der Personen, für die das Rezept angepasst werden soll
     :return: Ein neues Rezept, angepasst für die angegebene Anzahl an Personen
     """
-    # Berechne den Faktor für die Anpassung
+    # Berechne den Anpassungsfaktor
     adjustment_factor = num_people / recipe['servings']
 
     # Erstelle ein neues Rezept-Dictionary
@@ -37,13 +43,13 @@ def load_recipe(json_string):
 
 if __name__ == '__main__':
     # Beispiel für die Datenstruktur eines Rezepts
-    recipe_json = '{"title": "Spaghetti Bolognese", "ingredients": {"Spaghetti": 400, "Tomato Sauce": 300, "Minced Meat": 500}, "servings": 4}'
+    recipe_json_str = '{"title": "Spaghetti Bolognese", "ingredients": {"Spaghetti": 400, "Tomato Sauce": 300, "Minced Meat": 500}, "servings": 4}'
 
     # Lese das Rezept aus dem JSON-String
-    recipe = load_recipe(recipe_json)
+    recipe_dict = load_recipe(recipe_json_str)
 
     # Beispiel: Anpassung des Rezepts für 2 Personen
-    adjusted_recipe = adjust_recipe(recipe, 2)
+    adjusted_recipe_dict = adjust_recipe(recipe_dict, 2)
 
     # Ausgabe des angepassten Rezepts
-    print(json.dumps(adjusted_recipe, indent=4))  # Formatiert zur besseren Lesbarkeit
+    print(json.dumps(adjusted_recipe_dict, indent=4))  # Formatiert zur besseren Lesbarkeit
